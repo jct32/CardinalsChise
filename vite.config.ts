@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 
-export default defineConfig({
+/* export default defineConfig({
   // prevent vite from obscuring rust errors
   clearScreen: false,
   // Tauri expects a fixed port, fail if that port is not available
@@ -17,4 +17,8 @@ export default defineConfig({
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_DEBUG,
   },
-})
+}) */
+
+export default {
+  base: '/CardinalsChise'
+}

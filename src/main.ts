@@ -1,6 +1,6 @@
 import './w3.css'
 import { createNavigation } from './navigation'
-import { placeHolder } from './navigation';
+//import { placeHolder } from './navigation';
 import { topFreeAgents } from './top-free-agents';
 
 createNavigation();
