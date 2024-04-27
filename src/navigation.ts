@@ -1,4 +1,5 @@
 import { topFreeAgents } from "./top-free-agents";
+import { teamUpdate } from "./team-update";
 
 export function createNavigation() {
     document.querySelector<HTMLBodyElement>('#app')!.innerHTML = `
@@ -7,7 +8,9 @@ export function createNavigation() {
     <div class="w3-dropdown-hover w3-red">
     <button class="w3-button">Season</button>
     <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#" class="w3-bar-item w3-button" onclick="placeHolder()">Placeholder</a>
+        <a href="#" class="w3-bar-item w3-button">Game Update</a>
+        <a href="#" class="w3-bar-item w3-button">Team Update</a>
+        <a href="#" class="w3-bar-item w3-button">League Update</a>
     </div>
     </div>
     <div class="w3-dropdown-hover w3-red">
@@ -39,10 +42,12 @@ export function createNavigation() {
             case 'Top Free Agents':
                 element.onclick = topFreeAgents;
                 break;
+            case 'Team Update':
+                element.onclick = teamUpdate;
+                break;
             default:
                 element.onclick = placeHolder;
                 break;
-
         }
     });
 }
