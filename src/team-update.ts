@@ -17,6 +17,7 @@ function createTeamUpdateLayout() {
     let dateInput = document.createElement('input');
     dateInput.className = "w3-input";
     dateInput.type = "date";
+    dateInput.id = "dateSelect";
     baseContainer!.append(dateInput);
     let hittingHeader = document.createElement('h5');
     hittingHeader.className = 'w3-center';
@@ -38,6 +39,7 @@ function createTeamUpdateLayout() {
     let generateBtn = document.createElement('button');
     generateBtn.className = "w3-button w3-red w3-center";
     generateBtn.innerHTML = "Generate Post";
+    generateBtn.onclick = generatePost;
     generateBtnDiv.append(generateBtn);
     baseContainer!.append(generateBtnDiv);
     let card = document.createElement('div');
@@ -92,16 +94,6 @@ function createHitterRow() {
     containerDiv.append(avgDiv);
     avgDiv.append(avgInput);
 
-    // OPS Input
-    let opsDiv = document.createElement('div');
-    opsDiv.style.width = "10%";
-    opsDiv.className = 'w3-cell w3-display-container';
-    let opsInput = document.createElement('input');
-    opsInput.className = 'w3-input';
-    opsInput.placeholder = "OPS";
-    containerDiv.append(opsDiv);
-    opsDiv.append(opsInput);
-
     // SLG Input
     let slgDiv = document.createElement('div');
     slgDiv.style.width = "10%";
@@ -111,6 +103,16 @@ function createHitterRow() {
     slgInput.className = 'w3-input';
     containerDiv.append(slgDiv);
     slgDiv.append(slgInput);
+
+    // OPS Input
+    let opsDiv = document.createElement('div');
+    opsDiv.style.width = "10%";
+    opsDiv.className = 'w3-cell w3-display-container';
+    let opsInput = document.createElement('input');
+    opsInput.className = 'w3-input';
+    opsInput.placeholder = "OPS";
+    containerDiv.append(opsDiv);
+    opsDiv.append(opsInput);
 
     // HR Input
     let HRDiv = document.createElement('div');
@@ -228,4 +230,58 @@ function copyToClipboard() {
     let outputArea = <HTMLTextAreaElement> document.getElementById('outputArea');
     outputArea.select();
     navigator.clipboard.writeText(outputArea.value);
+}
+
+function generatePost() {
+    let outputArea = <HTMLTextAreaElement> document.getElementById('outputArea');
+    let outText = '[FONT=TAHOMA]\n';
+    outText += '[b][u]Cardinals Hitting Stats,';
+    let date = <HTMLInputElement> document.getElementById("dateSelect");
+    let dateArray = date.value.split('-');
+    outText += ` ${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`;
+    outText += '[/u][/b]\n'
+    for(let i=0; i < hitterArray.length; i++) {
+        if (hitterArray[i]["name"].value == '') {
+            continue
+        }
+        let name = hitterArray[i]["name"].value;
+        let avg = hitterArray[i]["avg"].value;
+        let slg = hitterArray[i]["slg"].value;
+        let ops = hitterArray[i]["ops"].value;
+        let hr = hitterArray[i]["hr"].value;
+        let rbi = hitterArray[i]["rbi"].value;
+        if (i < 9) {
+            outText += `${i+1}. `;
+        }
+        outText += `${name}: .${avg}/.${slg}/.${ops}, ${hr} HR, ${rbi} RBI\n`;
+    }
+    outText += '\n'
+    outText += '[b][u]Cardinals Pitching Stats, ';
+    outText += `${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`;
+    outText += '[/u][/b]\n'
+
+    for(let i=0; i < pitcherArray.length; i++) {
+        if (pitcherArray[i]["name"].value == '') {
+            continue
+        }
+        let name = pitcherArray[i]["name"].value;
+        let win = pitcherArray[i]["w"].value;
+        let loss = pitcherArray[i]["l"].value;
+        let era = pitcherArray[i]["era"].value;
+        let sv = pitcherArray[i]["sv"].value;
+        let strikeouts = pitcherArray[i]["k"].value;
+        if (i < 5) {
+            outText += `${i+1}. `;
+        }
+        if (sv != '') {
+            outText += `${name}: ${win}-${loss}, ${era} ERA, ${sv} SV, ${strikeouts} K\n`;
+        }
+        else {
+            outText += `${name}: ${win}-${loss}, ${era} ERA, ${strikeouts} K\n`;
+        }
+        
+    }
+
+
+    outputArea.value = outText;
 }
