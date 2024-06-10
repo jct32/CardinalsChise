@@ -92,15 +92,15 @@ function createHitterRow() {
     containerDiv.append(avgDiv);
     avgDiv.append(avgInput);
 
-    // OPS Input
-    let opsDiv = document.createElement('div');
-    opsDiv.style.width = "10%";
-    opsDiv.className = 'w3-cell w3-display-container';
-    let opsInput = document.createElement('input');
-    opsInput.className = 'w3-input';
-    opsInput.placeholder = "OPS";
-    containerDiv.append(opsDiv);
-    opsDiv.append(opsInput);
+    // OBP Input
+    let obpDiv = document.createElement('div');
+    obpDiv.style.width = "10%";
+    obpDiv.className = 'w3-cell w3-display-container';
+    let obpInput = document.createElement('input');
+    obpInput.className = 'w3-input';
+    obpInput.placeholder = "OBP";
+    containerDiv.append(obpDiv);
+    obpDiv.append(obpInput);
 
     // SLG Input
     let slgDiv = document.createElement('div');
@@ -135,7 +135,7 @@ function createHitterRow() {
     let hitterElements = {
         "name": playerInput,
         "avg": avgInput,
-        "ops": opsInput,
+        "ops": obpInput,
         "slg": slgInput,
         "hr": HRInput,
         "rbi": RBIInput
